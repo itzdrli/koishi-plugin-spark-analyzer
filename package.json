@@ -1,5 +1,6 @@
 {
   "name": "koishi-plugin-mcdev",
+  "description": "Koishi plugin for spark analysing and more function will be added in the future.",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -15,6 +16,11 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "^4.13.6"
+    "koishi": "^4.12.9",
+    "koishi-plugin-puppeteer": "^3.4.11"
+  },
+  "dependencies": {
+    "@types/jexl": "^2.3.1",
+    "jexl": "^2.3.0"
   }
 }
