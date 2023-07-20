@@ -27,7 +27,7 @@ entity-activation-range.tick-inactive-villagers:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["tick-inactive-villagers"] == "true"
   prefix: "❌"
-  value: "在spigot.yml中禁用这个.\n"
+  value: "在 spigot.yml 中禁用这个.\n"
 entity-activation-range.wake-up-inactive.villagers-for:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["villagers-max-per-tick"] >= 1
@@ -81,12 +81,12 @@ merge-radius.item:
 - expressions:
   - parseFloat(spigot["world-settings"]["default"]["merge-radius"]["item"]) <= 2.5
   prefix: "❌"
-  value: "增加这个值在spigot.yml中.\n推荐值: 4.0."
+  value: "在 spigot.yml 中增加此值.\n推荐值: 4.0."
 merge-radius.exp:
 - expressions:
   - parseFloat(spigot["world-settings"]["default"]["merge-radius"]["exp"]) <= 3.0
   prefix: "❌"
-  value: "增加这个值在spigot.yml中.\n推荐值: 6.0."
+  value: "在 spigot.yml 中增加此值.\n推荐值: 6.0."
 max-entity-collisions:
 - expressions:
   - spigot["world-settings"]["default"]["max-entity-collisions"] >= 8
