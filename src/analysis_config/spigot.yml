@@ -2,27 +2,27 @@ entity-activation-range.animals:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["animals"] >= 32
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 16."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 16."
 entity-activation-range.monsters:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["monsters"] >= 32
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 16."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 16."
 entity-activation-range.misc:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["misc"] >= 16
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 12."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 12."
 entity-activation-range.water:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["water"] >= 16
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 12."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 12."
 entity-activation-range.villagers:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["villagers"] >= 32
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 16."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 16."
 entity-activation-range.tick-inactive-villagers:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["tick-inactive-villagers"] == "true"
@@ -33,50 +33,50 @@ entity-activation-range.wake-up-inactive.villagers-for:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["villagers-max-per-tick"] >= 1
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["villagers-for"] >= 100
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 20."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 20."
 entity-activation-range.wake-up-inactive.flying-monsters-for:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["flying-monsters-max-per-tick"] >= 1
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["flying-monsters-for"] >= 100
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 60."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 60."
 entity-activation-range.wake-up-inactive.villagers-max-per-tick:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["villagers-max-per-tick"] >= 4
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 1."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 1."
 entity-activation-range.wake-up-inactive.animals-for:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["animals-max-per-tick"] >= 1
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["animals-for"] >= 100
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 40."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 40."
 entity-activation-range.wake-up-inactive.monsters-max-per-tick:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["monsters-max-per-tick"] >= 8
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 4."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 4."
 entity-activation-range.wake-up-inactive.flying-monsters-max-per-tick:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["flying-monsters-max-per-tick"] >= 8
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 1."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 1."
 entity-activation-range.wake-up-inactive.animals-max-per-tick:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["animals-max-per-tick"] >= 4
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 2."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 2."
 entity-activation-range.wake-up-inactive.monsters-for:
 - expressions:
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["monsters-max-per-tick"] >= 1
   - spigot["world-settings"]["default"]["entity-activation-range"]["wake-up-inactive"]["monsters-for"] >= 100
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 60."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 60."
 arrow-despawn-rate:
 - expressions:
   - spigot["world-settings"]["default"]["arrow-despawn-rate"] >= 1200
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 300."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 300."
 merge-radius.item:
 - expressions:
   - parseFloat(spigot["world-settings"]["default"]["merge-radius"]["item"]) <= 2.5
@@ -91,4 +91,4 @@ max-entity-collisions:
 - expressions:
   - spigot["world-settings"]["default"]["max-entity-collisions"] >= 8
   prefix: "❌"
-  value: "减少这个值在spigot.yml中.\n推荐值: 2."
+  value: "在 spigot.yml 中减少此值.\n推荐值: 2."
