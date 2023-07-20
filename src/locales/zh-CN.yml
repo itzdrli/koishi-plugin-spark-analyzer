@@ -1,0 +1,3 @@
+nourl: '请输入链接.'
+invalidurl: '请输入有效的Spark报告链接.'
+failed: '获取Spark报告失败, 请检查是否为正确的Spark报告链接'

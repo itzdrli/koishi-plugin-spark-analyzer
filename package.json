@@ -1,7 +1,7 @@
 {
-  "name": "koishi-plugin-mcdev",
-  "description": "Koishi plugin for spark analysing and more function will be added in the future.",
-  "version": "0.0.1",
+  "name": "koishi-plugin-spark-analyzer",
+  "description": "Koishi plugin helps you analyze your spark report from Minecraft Server.",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -16,7 +16,7 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "^4.12.9",
+    "koishi": "^4.13.7",
     "koishi-plugin-puppeteer": "^3.4.11"
   },
   "dependencies": {

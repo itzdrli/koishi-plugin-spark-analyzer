@@ -1,0 +1,3 @@
+nourl: 'Please enter a URL'
+invalidurl: 'Please enter a valid Spark report URL.'
+failed: 'Failed to fetch Spark report, please check if it is a valid Spark report URL.'

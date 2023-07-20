@@ -3,7 +3,7 @@ import {confChecker, gcChecker} from './spark';
 import fs from "fs";
 import path from "path";
 
-export const name = 'mcdev'
+export const name = 'spark-analyzer'
 export const using = ['puppeteer']
 export interface Config {}
 
@@ -11,14 +11,20 @@ export const Config: Schema<Config> = Schema.object({})
 
 export function apply(ctx: Context) {
   const chotaStyles = fs.readFileSync(path.join(__dirname, 'chota.min.css'), 'utf-8');
-
+  ctx.i18n.define('zh-CN', require('./locales/zh-CN'))
+  ctx.i18n.define('en-US', require('./locales/en-US'))
   ctx.command('spark <url:strings>').action(async ({ session }, url) => {
-    if (!url) return '请输入网址。'
-    if (!url.startsWith('https://spark')) return '不是 spark 报告的网址。'
+    if (!url) {
+      return session.text('nourl')
+    }
+    if (!url.startsWith('https://spark')) {
+      return session.text('invalidurl')
+    }
     const response_raw = await fetch(url + '?raw=1')
     const sampler: any = await response_raw.json().catch(() => undefined)
-    if (!sampler) return '获取数据失败，请检查是不是 spark 报告的链接。'
-
+    if (!sampler) {
+      return session.text('failed')
+    }
     const cards: { name: string; value: string; }[] = []
 
     const platform = sampler.metadata.platform.version
@@ -84,7 +90,8 @@ export function apply(ctx: Context) {
          <div class="card">
             <h2>Spark - ${url.substring(url.lastIndexOf('\/') + 1)}</h2>
             <p>${platform} - ${user}</p>
-            <div class="tag">本项目开源于 GitHub ahdg6/koishi-plugin-mcdev</div>
+            <div class="tag">本项目开源于 GitHub itzdrli/koishi-plugin-spark-analyzer</div>
+            <div class="tag">项目代码基于大佬的代码进行修改 Github ahdg6/koishi-plugin-mcdev</div>
             <div class="tag">功能代码借鉴了 Discord bot - CraftyAssistant</div>
          </div>
       </div>
