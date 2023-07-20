@@ -1,36 +1,36 @@
 settings.use-alternate-keepalive:
 - expressions:
   - purpur["settings"]["use-alternate-keepalive"] == "false"
-  - 'plugins.find( plugin => plugin.name == "TCPShield" ) === undefined'
+  - 'plugins.find(plugin => plugin.name == "TCPShield") === undefined'
   prefix: "❌"
-  value: "Enable this in purpur.yml."
+  value: "在 purpur.yml 中启用此选项."
 - expressions:
   - purpur["settings"]["use-alternate-keepalive"] == "true"
-  - 'plugins.find( plugin => plugin.name == "TCPShield" ) !== undefined'
+  - 'plugins.find(plugin => plugin.name == "TCPShield") !== undefined'
   prefix: "❌"
-  value: "Disable this in purpur.yml. It can cause issues with TCPShield"
+  value: "在 purpur.yml 中禁用此选项.它可能会与 TCPShield 引起问题."
 settings.dont-send-useless-entity-packets:
 - expressions:
   - purpur["settings"]["dont-send-useless-entity-packets"] == "false"
   prefix: "❌"
-  value: "Enable this in purpur.yml."
+  value: "在 purpur.yml 中启用此选项."
 mobs.villager.brain-ticks:
 - expressions:
   - purpur["world-settings"]["default"]["mobs"]["villager"]["brain-ticks"] == 1
   prefix: "❌"
-  value: "Increase this in purpur.yml.\nRecommended: 4."
+  value: "在 purpur.yml 中增加此值.\n推荐: 4."
 mobs.villager.spawn-iron-golem.radius:
 - expressions:
   - purpur["world-settings"]["default"]["mobs"]["villager"]["spawn-iron-golem"]["radius"] == 0
   prefix: "❌"
-  value: "Increase this in purpur.yml.\nRecommended: 5."
+  value: "在 purpur.yml 中增加此值.\n推荐: 5."
 mobs.zombie.aggressive-towards-villager-when-lagging:
 - expressions:
   - purpur["world-settings"]["default"]["mobs"]["zombie"]["aggressive-towards-villager-when-lagging"] == "true"
   prefix: "❌"
-  value: "Disable this in purpur.yml."
+  value: "在 purpur.yml 中禁用此选项."
 gameplay-mechanics.player.teleport-if-outside-border:
 - expressions:
   - purpur["world-settings"]["default"]["gameplay-mechanics"]["player"]["teleport-if-outside-border"] == "false"
   prefix: "❌"
-  value: "Enable this in purpur.yml."
+  value: "在 purpur.yml 中启用此选项."

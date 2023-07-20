@@ -2,34 +2,34 @@ chunk-gc.period-in-ticks:
 - expressions:
   - bukkit["chunk-gc"]["period-in-ticks"] >= 600
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 400."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 400."
 ticks-per.monster-spawns:
 - expressions:
   - bukkit["ticks-per"]["monster-spawns"] == 1
   prefix: "❌"
-  value: "Increase this in bukkit.yml.\nRecommended: 4."
+  value: "在 bukkit.yml 中增加此值.\n推荐: 4."
 spawn-limits.monsters:
 - expressions:
   - bukkit["spawn-limits"]["monsters"] >= 70
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 15."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 15."
 spawn-limits.water-ambient:
 - expressions:
   - bukkit["spawn-limits"]["water-ambient"] >= 20
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 5."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 5."
 spawn-limits.ambient:
 - expressions:
   - bukkit["spawn-limits"]["ambient"] >= 15
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 1."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 1."
 spawn-limits.animals:
 - expressions:
   - bukkit["spawn-limits"]["animals"] >= 10
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 5."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 5."
 spawn-limits.water-animals:
 - expressions:
   - bukkit["spawn-limits"]["water-animals"] >= 15
   prefix: "❌"
-  value: "Decrease this in bukkit.yml.\nRecommended: 5."
+  value: "在 bukkit.yml 中减少此值.\n推荐: 5."

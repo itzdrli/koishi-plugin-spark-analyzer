@@ -16,10 +16,10 @@ const CHECKCONF = {
   purpur: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'purpur.yml'), 'utf8')),
   paper: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'paper.yml'), 'utf8')),
 }
-export async function confChecker(configs){
-  const fields: { name: string; value: string; }[] = []
+export async function confChecker(configs) {
+  const fields: { name: string; value: string; }[] = [];
 
-  let variablesMap = {}
+  let variablesMap = {};
 
   const configKeys = [
     ['server.properties', 'server_properties'],
@@ -27,41 +27,41 @@ export async function confChecker(configs){
     ['spigot.yml', 'spigot'],
     ['paper/', 'paper'],
     ['purpur.yml', 'purpur']
-  ]
+  ];
 
   configKeys.forEach(([key, varName]) => {
     if (configs[key]) {
-      variablesMap[varName] = JSON.parse(configs[key])
+      variablesMap[varName] = JSON.parse(configs[key]);
     }
-  })
+  });
 
   for (const name in variablesMap) {
-    const configName = `config.${name}`
-    const configObj: any = await CHECKCONF[name]
-    if (!configObj) continue
+    const configName = `config.${name}`;
+    const configObj: any = await CHECKCONF[name];
+    if (!configObj) continue;
     for (const nodePath in configObj) {
-      const checkArray: Checker[] = configObj[nodePath]
+      const checkArray: Checker[] = configObj[nodePath];
       for (let i = 0; i < checkArray.length; i++) {
-        let expressions = checkArray[i].expressions
+        let expressions = checkArray[i].expressions;
         // @ts-ignore
         const allExpressionsTrue = expressions.every(
           async (expressionStr) => {
             try {
-              const result = await jexl.eval(expressionStr, variablesMap)
-              return !!result
+              const result = await jexl.eval(expressionStr, variablesMap);
+              return !!result;
             } catch (error) {
-              fields.push(errorField(nodePath, error))
-              return false
+              fields.push(errorField(nodePath, error));
+              return false;
             }
           }
-        )
+        );
         if (allExpressionsTrue)
-          fields.push(createField(nodePath, checkArray[i]))
+          fields.push(createField(nodePath, checkArray[i]));
       }
     }
   }
 
-  return fields
+  return fields;
 }
 
 export async function gcChecker(
@@ -72,82 +72,81 @@ export async function gcChecker(
   function extractMemoryAndGcType(
     jvmFlagString: string
   ): [number | null, string | null] {
-    const regex = /-Xm[sx]([0-9]+[kmg])\b.*?(-XX:\+Use(\w+)GC)\b/gi
-    const matches = regex.exec(jvmFlagString)
+    const regex = /-Xm[sx]([0-9]+[kmg])\b.*?(-XX:\+Use(\w+)GC)\b/gi;
+    const matches = regex.exec(jvmFlagString);
     if (matches && matches.length > 3) {
-      const memorySizeStr = matches[1]
-      const gcType = matches[3]
+      const memorySizeStr = matches[1];
+      const gcType = matches[3];
 
-      const memorySize = parseMemorySize(memorySizeStr)
+      const memorySize = parseMemorySize(memorySizeStr);
 
-      return [memorySize, gcType]
+      return [memorySize, gcType];
     }
 
-    return [null, null]
+    return [null, null];
   }
   function parseMemorySize(memorySizeStr: string): number | null {
-    const size = parseInt(memorySizeStr, 10)
+    const size = parseInt(memorySizeStr, 10);
     if (!isNaN(size)) {
       if (memorySizeStr.endsWith('g')) {
-        return size * 1024 // GB 转换为 MB
+        return size * 1024; // GB 转换为 MB
       } else if (memorySizeStr.endsWith('k')) {
-        return size / 1024 // KB 转换为 MB
+        return size / 1024; // KB 转换为 MB
       } else {
-        return size // MB
+        return size; // MB
       }
     }
-    return null
+    return null;
   }
-  const [memorySize, gcType] = extractMemoryAndGcType(jvmFlagsString)
+  const [memorySize, gcType] = extractMemoryAndGcType(jvmFlagsString);
   if (memorySize == null || gcType == null)
     return {
-      name: '⚠️ Flags',
-      value: 'We can not analyse your flags.'
-    }
+      name: '⚠️ 启动参数',
+      value: '无法解析启动参数.'
+    };
   if (gcType == 'Z' && memorySize <= 20480) {
     return {
       name: '❗ ZGC',
-      value: `ZGC is known to be usable when you allocated 20GB+ Memory
-        , But you only allocated ${memorySize}MB so increase it or change GC (Use /mcflags to generate one).`
-    }
+      value: `ZGC 在 20GB+ 运行内存的情况下才能发挥最大效果
+        , 但是你只分配给了服务端 ${memorySize}MB, 所以建议加大内存或者使用GC.`
+    };
   }
   if (gcType == 'Shenandoah' && isServer) {
     return {
       name: '❗ Shenandoah',
-      value: `ShenandoahGC is **Not** server friendly,
-        It only works well on client side. Use our /mcflags to generate better one.`
-    }
+      value: `ShenandoahGC **不推荐** 在服务端上使用,
+        ShenandoahGC 通常被用在Minecraft客户端上.`
+    };
   }
   if (gcType == 'G1') {
     if (memorySize >= 20480 && jvmVersion >= 16) {
       return {
-        name: '❗ G1 to ZGC',
-        value: `You are allocating 20GB+ in Java${jvmVersion}
-            , I would like to recommend you hava a try with ZGC as It will greatly improve your GC stop time.`
-      }
+        name: '❗ G1 到 ZGC',
+        value: `你在 Java${jvmVersion} 为服务端分配了 20GB+ 内存
+            , 我建议你尝试使用 ZGC，因为它会极大地提高GC停止时间.`
+      };
     }
     if (
       memorySize >= 12088 &&
       jvmFlagsString.includes('-XX:G1NewSizePercent=30')
     )
       return {
-        name: '❗ G1 Improvement',
-        value: `When you allocated 12GB+ memory
-        in G1GC, Please consider changing some flags value. (Use /mcflags to generate)`
-      }
+        name: '❗ G1 改进',
+        value: `当你在 G1GC 中分配 12GB+ 内存时，请考虑更改一些标志值.`
+      };
   }
   return {
     name: `✅ ${gcType}GC`,
-    value: 'Good job. We can not find any problems in your flags.'
-  }
+    value: '干得好.在你的启动参数中，我们找不到任何问题.'
+  };
 }
 
 function createField(node: string, option: Checker) {
-  const field = { name: node, value: option.value }
-  if (option.prefix) field.name = option.prefix + ' ' + field.name
-  return field
+  const field = { name: node, value: option.value };
+  if (option.prefix) field.name = option.prefix + ' ' + field.name;
+  return field;
 }
 
 function errorField(node: string, error: unknown) {
-  return { name: '⚠️' + node, value: String(error) }
+  return { name: '⚠️' + node, value: String(error) };
 }

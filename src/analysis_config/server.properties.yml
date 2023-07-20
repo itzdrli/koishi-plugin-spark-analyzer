@@ -3,4 +3,4 @@ network-compression-threshold:
   - server_properties["network-compression-threshold"] <= 256
   - spigot["settings"]["bungeecord"] == "false"
   prefix: "❌"
-  value: "Increase this in server.properties. Recommended: 512."
+  value: "在 server.properties 中增加此值.推荐: 512."
