@@ -93,6 +93,7 @@ export function apply(ctx: Context) {
             <div class="tag">本项目开源于 GitHub itzdrli/koishi-plugin-spark-analyzer</div>
             <div class="tag">项目代码基于大佬的代码进行修改 Github ahdg6/koishi-plugin-mcdev</div>
             <div class="tag">功能代码借鉴了 Discord bot - CraftyAssistant</div>
+            <div class="tag">生成结果仅供参考</div>
          </div>
       </div>
       <div class="container">

@@ -1,32 +1,56 @@
-import path from 'path'
-import yaml from 'js-yaml'
+import path from "path";
 import fs from "fs";
-import jexl from 'jexl';
+import jexl from "jexl";
 
 interface Checker {
-  expressions?: string[]
-  prefix: string
-  value: string
+  expressions?: string[];
+  prefix: string;
+  value: string;
 }
 
 const CHECKCONF = {
-  bukkit: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'bukkit.yml'), 'utf8')),
-  spigot: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'spigot.yml'), 'utf8')),
-  server_properties: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'server.properties.yml'), 'utf8')),
-  purpur: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'purpur.yml'), 'utf8')),
-  paper: yaml.load(fs.readFileSync(path.join(__dirname, 'analysis_config', 'paper.yml'), 'utf8')),
-}
+  bukkit: JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "analysis_config", "bukkit.json"),
+      "utf8",
+    ),
+  ),
+  spigot: JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "analysis_config", "spigot.json"),
+      "utf8",
+    ),
+  ),
+  server_properties: JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "analysis_config", "server.properties.json"),
+      "utf8",
+    ),
+  ),
+  purpur: JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "analysis_config", "purpur.json"),
+      "utf8",
+    ),
+  ),
+  paper: JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "analysis_config", "paper.json"),
+      "utf8",
+    ),
+  ),
+};
 export async function confChecker(configs) {
-  const fields: { name: string; value: string; }[] = [];
+  const fields: { name: string; value: string }[] = [];
 
   let variablesMap = {};
 
   const configKeys = [
-    ['server.properties', 'server_properties'],
-    ['bukkit.yml', 'bukkit'],
-    ['spigot.yml', 'spigot'],
-    ['paper/', 'paper'],
-    ['purpur.yml', 'purpur']
+    ["server.properties", "server_properties"],
+    ["bukkit.yml", "bukkit"],
+    ["spigot.yml", "spigot"],
+    ["paper/", "paper"],
+    ["purpur.yml", "purpur"],
   ];
 
   configKeys.forEach(([key, varName]) => {
@@ -41,22 +65,32 @@ export async function confChecker(configs) {
     if (!configObj) continue;
     for (const nodePath in configObj) {
       const checkArray: Checker[] = configObj[nodePath];
-      for (let i = 0; i < checkArray.length; i++) {
-        let expressions = checkArray[i].expressions;
-        // @ts-ignore
-        const allExpressionsTrue = expressions.every(
-          async (expressionStr) => {
-            try {
-              const result = await jexl.eval(expressionStr, variablesMap);
-              return !!result;
-            } catch (error) {
-              fields.push(errorField(nodePath, error));
-              return false;
+
+      for (const checkItem of checkArray) {
+        const { expressions } = checkItem;
+
+        if (!expressions) continue;
+
+        let allExpressionsTrue = true;
+
+        for (const expressionStr of expressions) {
+          try {
+            const result = jexl.evalSync(expressionStr, variablesMap);
+
+            if (!result) {
+              allExpressionsTrue = false;
+              break; // 如果有一个表达式不为真，我们可以直接退出循环
             }
+          } catch (error) {
+            fields.push(errorField(nodePath, error));
+            allExpressionsTrue = false;
+            break; // 出现错误时，我们也退出循环
           }
-        );
-        if (allExpressionsTrue)
-          fields.push(createField(nodePath, checkArray[i]));
+        }
+
+        if (allExpressionsTrue) {
+          fields.push(createField(nodePath, checkItem));
+        }
       }
     }
   }
@@ -67,10 +101,10 @@ export async function confChecker(configs) {
 export async function gcChecker(
   jvmFlagsString: string,
   isServer: boolean,
-  jvmVersion: number
+  jvmVersion: number,
 ) {
   function extractMemoryAndGcType(
-    jvmFlagString: string
+    jvmFlagString: string,
   ): [number | null, string | null] {
     const regex = /-Xm[sx]([0-9]+[kmg])\b.*?(-XX:\+Use(\w+)GC)\b/gi;
     const matches = regex.exec(jvmFlagString);
@@ -88,9 +122,9 @@ export async function gcChecker(
   function parseMemorySize(memorySizeStr: string): number | null {
     const size = parseInt(memorySizeStr, 10);
     if (!isNaN(size)) {
-      if (memorySizeStr.endsWith('g')) {
+      if (memorySizeStr.endsWith("g")) {
         return size * 1024; // GB 转换为 MB
-      } else if (memorySizeStr.endsWith('k')) {
+      } else if (memorySizeStr.endsWith("k")) {
         return size / 1024; // KB 转换为 MB
       } else {
         return size; // MB
