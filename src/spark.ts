@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import yaml from "js-yaml";
 import jexl from "jexl";
 
 interface Checker {
@@ -9,33 +10,33 @@ interface Checker {
 }
 
 const CHECKCONF = {
-  bukkit: JSON.parse(
+  bukkit: yaml.load(
     fs.readFileSync(
-      path.join(__dirname, "analysis_config", "bukkit.json"),
+      path.join(__dirname, "analysis_config", "bukkit.yml"),
       "utf8",
     ),
   ),
-  spigot: JSON.parse(
+  spigot: yaml.load(
     fs.readFileSync(
-      path.join(__dirname, "analysis_config", "spigot.json"),
+      path.join(__dirname, "analysis_config", "spigot.yml"),
       "utf8",
     ),
   ),
-  server_properties: JSON.parse(
+  server_properties: yaml.load(
     fs.readFileSync(
-      path.join(__dirname, "analysis_config", "server.properties.json"),
+      path.join(__dirname, "analysis_config", "server.properties.yml"),
       "utf8",
     ),
   ),
-  purpur: JSON.parse(
+  purpur: yaml.load(
     fs.readFileSync(
-      path.join(__dirname, "analysis_config", "purpur.json"),
+      path.join(__dirname, "analysis_config", "purpur.yml"),
       "utf8",
     ),
   ),
-  paper: JSON.parse(
+  paper: yaml.load(
     fs.readFileSync(
-      path.join(__dirname, "analysis_config", "paper.json"),
+      path.join(__dirname, "analysis_config", "paper.yml"),
       "utf8",
     ),
   ),
@@ -55,7 +56,7 @@ export async function confChecker(configs) {
 
   configKeys.forEach(([key, varName]) => {
     if (configs[key]) {
-      variablesMap[varName] = JSON.parse(configs[key]);
+      variablesMap[varName] = yaml.load(configs[key]);
     }
   });
 
