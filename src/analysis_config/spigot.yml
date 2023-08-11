@@ -79,12 +79,12 @@ arrow-despawn-rate:
   value: "在 spigot.yml 中减少此值.\n推荐值: 300."
 merge-radius.item:
 - expressions:
-  - parseFloat(spigot["world-settings"]["default"]["merge-radius"]["item"]) <= 2.5
+  - spigot["world-settings"]["default"]["merge-radius"]["item"] <= 2.5
   prefix: "❌"
   value: "在 spigot.yml 中增加此值.\n推荐值: 4.0."
 merge-radius.exp:
 - expressions:
-  - parseFloat(spigot["world-settings"]["default"]["merge-radius"]["exp"]) <= 3.0
+  - spigot["world-settings"]["default"]["merge-radius"]["exp"] <= 3.0
   prefix: "❌"
   value: "在 spigot.yml 中增加此值.\n推荐值: 6.0."
 max-entity-collisions:

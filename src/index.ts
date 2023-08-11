@@ -61,26 +61,28 @@ export function apply(ctx: Context) {
       <style>
         ${chotaStyles}
         body {
-          background: linear-gradient(to right, #f2f3f7, #e2e9f3);
+          --font-color: #f5f5f5;
+          background: linear-gradient(to right, #313436, #272a2b);
         }
         .card {
+          background: linear-gradient(to right, #48494a, #4e4f52);
           box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
           border-radius: 15px;
         }
         .card h2 {
-          color: #333;
+          color: #f5f5f5;
           text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
           margin-bottom: 0.25rem;
           font-size: 1.25rem;
         }
         .card p {
-          color: #333;
+          color: #f5f5f5;
           text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
           margin-bottom: 1rem;
           font-size: 1.5rem;
         }
         .card .tag {
-          color: #777;
+          color: #f5f5f5;
           font-size: 0.8rem;
         }
       </style>
