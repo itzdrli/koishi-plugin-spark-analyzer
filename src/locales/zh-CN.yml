@@ -1,3 +1,8 @@
 nourl: '请输入链接.'
 invalidurl: '请输入有效的Spark报告链接.'
 failed: '获取Spark报告失败, 请检查是否为正确的Spark报告链接'
+commands: 
+  spark:
+    description: '分析Spark报告'
+    examples: |
+      spark https://spark.lucko.me/xxxxxxx
